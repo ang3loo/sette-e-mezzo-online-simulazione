@@ -1,96 +1,57 @@
-- Il valore della matta viene scelto automaticamente per **massimizzare il punteggio senza sballare**
+# Simulatore Gioco 7.5 Online
+
+## Descrizione
+
+Questo progetto è un simulatore del gioco **Sette e Mezzo** online.  
+Permette di simulare molte partite tra un giocatore e il mazziere, raccogliendo statistiche utili per analizzare strategie, probabilità di vincita e guadagni medi.
+
+Il simulatore è utile per:
+- Testare diverse strategie del giocatore.
+- Valutare statisticamente il comportamento del mazziere.
+- Misurare guadagno o perdita media in scenari ripetuti.
 
 ---
 
-## Obiettivo del gioco
+## Come funziona
 
-Raggiungere **7,5 punti** o avvicinarsi il più possibile **senza superarlo**.
+1. **Configurazione**
+   - Impostare in `main.py`:
+     - `NUM_PARTITE`: quante partite simulare per run.
+     - `NUM_SIMULAZIONI`: quante simulazioni consecutive eseguire.
+     - `SOGLIA_GIOCATORE`: soglia sotto cui il giocatore pesca carta.
 
-- Se un giocatore supera **7,5**, **sballa** e perde immediatamente.
+2. **Simulazione**
+   - Ogni partita utilizza un **mazzo nuovo e mischiato**.
+   - Il giocatore decide se pescare o stare secondo la strategia definita.
+   - Il mazziere gioca automaticamente seguendo le regole del gioco online.
+   - Si calcola il vincitore considerando 7.5 royal, sballi e pareggi.
 
----
+3. **Raccolta statistiche**
+   - Vittorie di giocatore e mazziere
+   - Pareggi
+   - Sballi
+   - Valore medio delle mani
+   - Carte medie pescate
+   - Guadagno totale e medio (ipotetico $)
 
-## Svolgimento della partita
-
-### 1️⃣ Fase iniziale (obbligatoria)
-
-1. Il mazziere distribuisce:
- - 1 carta scoperta al **giocatore**
- - 1 carta scoperta a sé stesso
-
-2. Si confrontano i valori iniziali:
- - Se `valore_giocatore > valore_mazziere`  
-   → si passa alla fase di gioco normale
- - Se `valore_giocatore ≤ valore_mazziere`:
-   - il **giocatore pesca carte forzatamente**
-   - finché:
-     - supera il valore del mazziere **oppure**
-     - **sballa**
-   - Se il giocatore sballa in questa fase → **il mazziere vince immediatamente**
-
----
-
-### 2️⃣ Turno del giocatore
-
-Il giocatore può:
-- **Chiedere carta**
-- **Stare**
-
-Regole:
-- Se supera **7,5**, sballa e **perde subito**
-- Può decidere liberamente quando fermarsi
+4. **Output**
+   - Console: stampa le statistiche della simulazione corrente.
+   - Excel: salva i dati in **“statistiche simulazioni 50.xlsx”**, aggiungendo ogni simulazione come nuova riga senza sovrascrivere le precedenti.
 
 ---
 
-### 3️⃣ Turno del mazziere (robot)
+## Struttura del progetto
 
-Il mazziere gioca **solo se il giocatore non è sballato**.
-
-Comportamento automatico:
-- Pesca carte finché il suo valore è **strettamente minore di 5**
-- Quando raggiunge un valore **≥ 5**, si ferma
-- Può sballare
-
----
-
-## Determinazione del vincitore
-
-- Se il giocatore sballa → **vince il mazziere**
-- Se il mazziere sballa → **vince il giocatore**
-- Altrimenti:
-- vince chi è **più vicino a 7,5**
-- **in caso di pareggio, vince il mazziere**  
-  *(a meno che il giocatore non abbia un 7 e mezzo Royal, che paga subito anche in caso di pareggio)*
+- `carta.py` → definisce le carte del mazzo.  
+- `mazzo.py` → gestisce il mazzo e la pesca delle carte.  
+- `giocatore.py` → gestisce la mano e il punteggio del giocatore.  
+- `mazziere.py` → estende Giocatore con le regole del mazziere.  
+- `gioco.py` → coordina la partita, distribuendo carte e determinando il vincitore.  
+- `excel_writer.py` → salva i risultati delle simulazioni in Excel.  
+- `main.py` → esegue le simulazioni, calcola le statistiche e le scrive su Excel.
 
 ---
 
-## 7 e Mezzo Royal
+## Scopo
 
-- Si verifica quando il giocatore ottiene **7,5 con esattamente 2 carte**
-- Paga **3:2**
-- **Vince subito anche in caso di pareggio con il mazziere**, a differenza del 7 e mezzo normale
-- Non modifica le normali regole di confronto con il mazziere per altre situazioni
-
----
-
-## Note di implementazione
-
-- Ogni partita è **indipendente**
-- Non esiste memoria tra una partita e l’altra
-- Il progetto è strutturato in **classi separate**:
-- Carta
-- Mazzo
-- Giocatore
-- Mazziere
-- Gioco
-- La logica del gioco è separata da output e statistiche
-
----
-
-## Possibili estensioni future
-
-- Strategie diverse del giocatore
-- Strategie alternative del mazziere
-- Statistiche e simulazioni Monte Carlo
-- Interfaccia grafica o web
-- Supporto a più giocatori
+Il programma serve per **analizzare statisticamente il gioco 7.5 online**, valutare strategie, guadagni e perdite medie, e studiare il comportamento del mazziere in simulazioni ripetute.
