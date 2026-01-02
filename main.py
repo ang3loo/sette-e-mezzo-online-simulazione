@@ -5,8 +5,8 @@ from excel_writer import scrivi_statistiche_excel
 # -----------------------------
 # Parametri simulazione
 # -----------------------------
-NUM_PARTITE = 100
-NUM_SIMULAZIONI = 50
+NUM_PARTITE = 10
+NUM_SIMULAZIONI = 1
 SOGLIA_GIOCATORE = 3.5
 file_excel = f"statistiche simulazioni {NUM_PARTITE}.xlsx"
 
@@ -14,15 +14,24 @@ file_excel = f"statistiche simulazioni {NUM_PARTITE}.xlsx"
 # -----------------------------
 # Strategia del giocatore
 # -----------------------------
-def strategia_prova(giocatore):
+def strategia_automatica(giocatore):
     """Pesca se valore < SOGLIA_GIOCATORE, altrimenti sta"""
     if giocatore.valore() < SOGLIA_GIOCATORE:
         return "carta"
     return "stai"
 
+def strategia_giocatore_reale(giocatore):
+    print(giocatore)  # mostra la mano e il valore attuale
+    decisione = input("Vuoi carta(c) o stare(s)? ").strip().lower()
+
+    if decisione == "c":
+        return "carta"
+    return "stai"
 
 
-def siumula_partite():
+
+
+def simula_partite(strategia):
     # -----------------------------
     # Variabili statistiche
     # -----------------------------
@@ -42,7 +51,7 @@ def siumula_partite():
     for _ in range(NUM_PARTITE):
         gioco = Gioco()
         gioco.fase_iniziale()
-        gioco.turno_giocatore(strategia=strategia_prova)
+        gioco.turno_giocatore(strategia=strategia)
         gioco.turno_mazziere()
 
         g_val = gioco.giocatore.valore()
@@ -132,5 +141,9 @@ def siumula_partite():
     scrivi_statistiche_excel(file_excel, SOGLIA_GIOCATORE, dati_excel)
 
 if __name__ == "__main__":
+    STRATEGIA = strategia_automatica
+    selezione = int(input("Seleziona la modalità di gioco:\n0. gioco con strategia automatica\n1. giochi tu\nScelta:"))
+    if selezione == 1:
+        STRATEGIA = strategia_giocatore_reale
     for _ in range(NUM_SIMULAZIONI):
-        siumula_partite()
+        simula_partite(STRATEGIA)

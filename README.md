@@ -22,7 +22,9 @@ Il simulatore è utile per:
 
 2. **Simulazione**
    - Ogni partita utilizza un **mazzo nuovo e mischiato**.
-   - Il giocatore decide se pescare o stare secondo la strategia definita.
+   - Il giocatore può essere controllato in due modi:
+     - **Simulazione automatica**: il giocatore decide secondo una strategia predefinita, come `strategia_prova`.
+     - **Giocatore reale**: usando `strategia_giocatore_reale`, il programma chiede all’utente ogni volta se vuole pescare carta o stare.
    - Il mazziere gioca automaticamente seguendo le regole del gioco online.
    - Si calcola il vincitore considerando 7.5 royal, sballi e pareggi.
 
