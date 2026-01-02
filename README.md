@@ -59,7 +59,8 @@ Comportamento automatico:
 - Se il mazziere sballa → **vince il giocatore**
 - Altrimenti:
 - vince chi è **più vicino a 7,5**
-- **in caso di pareggio, vince il mazziere**
+- **in caso di pareggio, vince il mazziere**  
+  *(a meno che il giocatore non abbia un 7 e mezzo Royal, che paga subito anche in caso di pareggio)*
 
 ---
 
@@ -67,8 +68,8 @@ Comportamento automatico:
 
 - Si verifica quando il giocatore ottiene **7,5 con esattamente 2 carte**
 - Paga **3:2**
-- Vale solo se il giocatore **non sballa**
-- Non modifica le normali regole di confronto con il mazziere
+- **Vince subito anche in caso di pareggio con il mazziere**, a differenza del 7 e mezzo normale
+- Non modifica le normali regole di confronto con il mazziere per altre situazioni
 
 ---
 
