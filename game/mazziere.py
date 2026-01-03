@@ -14,8 +14,14 @@ class Mazziere(Giocatore):
         """
         # Se il giocatore ha sballato, il mazziere non pesca
         if giocatore.sballato():
+            print("-------------Giocatore SBALLATO, MAZZIERE non pesca------------")
             return
 
         while self.valore() < 5:
             carta = mazzo.pesca()
             self.pesca(carta)
+        
+        if self.valore() > 7.5:
+            print(self.__repr__())
+            print("-----------------Mazzaro SBALLATO----------------")
+            return

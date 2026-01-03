@@ -32,6 +32,7 @@ class Gioco:
             # Pesca carte finché il giocatore supera il mazziere o sballa
             self.giocatore.pesca(self.mazzo.pesca())
             if self.giocatore.sballato():
+                print("-------------Giocatore SBALLATO, pescate automatiche----------------")
                 break
 
     def turno_giocatore(self, strategia=None):
@@ -45,7 +46,7 @@ class Gioco:
 
         while True:
             if strategia:
-                decisione = strategia(self.giocatore)
+                decisione = strategia(self.giocatore,self.mazziere)
             else:
                 decisione = "stai"  # default
 
@@ -54,6 +55,8 @@ class Gioco:
             elif decisione == "carta":
                 self.giocatore.pesca(self.mazzo.pesca())
                 if self.giocatore.sballato():
+                    print(self.giocatore)
+                    print("-----------------Giocatore SBALLATO----------------")
                     break
 
     def turno_mazziere(self):
